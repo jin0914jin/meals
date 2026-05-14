@@ -1,8 +1,11 @@
 <view class="page index-page">
   <view class="page-header">
-    <text class="page-title">今天吃什么</text>
+    <view class="title-stack">
+      <text class="page-kicker">私人菜谱库</text>
+      <text class="page-title">今天吃什么</text>
+    </view>
     <view class="header-tools">
-      <text class="count">{{recipes.length}} 道</text>
+      <text class="count">{{recipes.length}} 道菜</text>
       <button class="add-button" bindtap="goCreate" aria-label="新增菜谱">+</button>
     </view>
   </view>
@@ -19,18 +22,6 @@
     />
   </view>
 
-  <view class="random-card">
-    <view class="random-copy">
-      <text class="random-kicker">不知道吃什么</text>
-      <text class="random-title">抽一道菜，或者配一整套</text>
-      <text class="random-meta">随机一道：{{randomCardScopeText}} · 套餐：一荤一素一汤</text>
-    </view>
-    <view class="random-actions">
-      <button class="random-button secondary-random" bindtap="pickRandomRecipe">随机一道</button>
-      <button class="random-button" bindtap="generateMealSet">生成套餐</button>
-    </view>
-  </view>
-
   <scroll-view class="category-strip" scroll-x enable-flex>
     <view class="category-list">
       <button
@@ -45,27 +36,45 @@
     </view>
   </scroll-view>
 
-  <view wx:if="{{filteredRecipes.length}}" class="recipe-list">
-    <button
-      wx:for="{{filteredRecipes}}"
-      wx:key="id"
-      class="recipe-item"
-      data-id="{{item.id}}"
-      bindtap="goDetail"
-    >
-      <image wx:if="{{item.imagePath}}" class="recipe-image" src="{{item.imagePath}}" mode="aspectFill" />
-      <view wx:else class="recipe-placeholder">
-        <text>{{item.coverText}}</text>
-      </view>
-      <view class="recipe-main">
-        <view class="recipe-header">
-          <text class="recipe-title">{{item.title}}</text>
-          <text class="recipe-category category-{{item.category}}">{{item.categoryName}}</text>
+  <view class="decision-bar">
+    <view class="decision-copy">
+      <text class="decision-title">不知道吃什么</text>
+      <text class="decision-meta">{{randomAvailableText}} · {{mealHintText}}</text>
+    </view>
+    <view class="decision-actions">
+      <button class="decision-button secondary-random" disabled="{{!canPickRandom}}" bindtap="pickRandomRecipe">随机一道</button>
+      <button class="decision-button" disabled="{{!canGenerateMeal}}" bindtap="generateMealSet">生成套餐</button>
+    </view>
+  </view>
+
+  <view wx:if="{{filteredRecipes.length}}" class="recipe-section">
+    <view class="list-heading">
+      <text class="list-title">我的菜谱</text>
+      <text class="list-count">{{filteredCountText}}</text>
+    </view>
+
+    <view class="recipe-list">
+      <button
+        wx:for="{{filteredRecipes}}"
+        wx:key="id"
+        class="recipe-item"
+        data-id="{{item.id}}"
+        bindtap="goDetail"
+      >
+        <image wx:if="{{item.imagePath}}" class="recipe-image" src="{{item.imagePath}}" mode="aspectFill" />
+        <view wx:else class="recipe-placeholder">
+          <text>{{item.coverText}}</text>
         </view>
-        <text class="recipe-meta">{{item.updatedText}}</text>
-        <text class="recipe-note">{{item.summaryText}}</text>
-      </view>
-    </button>
+        <view class="recipe-main">
+          <view class="recipe-header">
+            <text class="recipe-title">{{item.title}}</text>
+            <text class="recipe-category category-{{item.category}}">{{item.categoryName}}</text>
+          </view>
+          <text class="recipe-meta">{{item.updatedText}}</text>
+          <text class="recipe-note">{{item.summaryText}}</text>
+        </view>
+      </button>
+    </view>
   </view>
 
   <view wx:else class="empty-state">
@@ -73,9 +82,13 @@
     <text class="empty-title">{{emptyTitle}}</text>
     <text class="empty-text">{{emptyText}}</text>
     <button wx:if="{{showCreateEmpty}}" class="primary-button empty-action" bindtap="goCreate">新增第一道菜</button>
+    <view wx:if="{{showFilterActions}}" class="empty-actions">
+      <button class="secondary-button empty-small-action" bindtap="clearSearch">清空搜索</button>
+      <button class="primary-button empty-small-action" bindtap="showAllRecipes">查看全部</button>
+    </view>
   </view>
 
-  <view wx:if="{{randomVisible}}" class="random-overlay" bindtap="closeRandomPanel">
+  <view wx:if="{{randomVisible}}" class="random-overlay">
     <view class="random-panel" catchtap="noop">
       <text class="random-panel-kicker">{{randomScopeText}}抽到</text>
       <image wx:if="{{randomRecipe.imagePath}}" class="random-panel-image" src="{{randomRecipe.imagePath}}" mode="aspectFill" />
@@ -91,7 +104,7 @@
     </view>
   </view>
 
-  <view wx:if="{{mealSetVisible}}" class="random-overlay" bindtap="closeMealSetPanel">
+  <view wx:if="{{mealSetVisible}}" class="random-overlay">
     <view class="meal-panel" catchtap="noop">
       <text class="random-panel-kicker">今天这套可以</text>
       <text class="meal-title">{{mealSet.title}}</text>
@@ -108,6 +121,10 @@
           <image wx:if="{{item.imagePath}}" class="meal-image" src="{{item.imagePath}}" mode="aspectFill" />
           <view wx:else class="meal-placeholder">{{item.coverText}}</view>
           <view class="meal-main">
+            <view class="meal-title-row">
+              <text class="meal-slot">{{item.slotLabel}}</text>
+              <text wx:if="{{item.slotStatus}}" class="meal-slot-status">{{item.slotStatus}}</text>
+            </view>
             <text class="meal-recipe-title">{{item.title}}</text>
             <text class="meal-category category-{{item.category}}">{{item.categoryName}}</text>
           </view>

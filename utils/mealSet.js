@@ -20,10 +20,12 @@ function pickFallback(recipes, usedIds) {
   return shuffle(candidates)[0]
 }
 
-function normalizeRecipe(recipe) {
+function normalizeRecipe(recipe, slotLabel, isFallback) {
   return Object.assign({}, recipe, {
     coverText: (recipe.title || '菜').slice(0, 1),
-    categoryName: categoryUtils.getCategoryName(recipe.category)
+    categoryName: categoryUtils.getCategoryName(recipe.category),
+    slotLabel,
+    slotStatus: isFallback ? '补位' : ''
   })
 }
 
@@ -47,7 +49,7 @@ function generateMealSet(recipes) {
     }
 
     usedIds.add(recipe.id)
-    picked.push(normalizeRecipe(recipe))
+    picked.push(normalizeRecipe(recipe, item.label, !categoryPick))
   })
 
   return {
