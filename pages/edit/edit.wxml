@@ -1,0 +1,96 @@
+<view class="page edit-page">
+  <button class="photo-area" bindtap="choosePhoto">
+    <image wx:if="{{imagePath}}" class="photo-preview" src="{{imagePath}}" mode="aspectFill" />
+    <view wx:else class="photo-placeholder">
+      <text class="photo-icon">相</text>
+      <text class="photo-title">添加菜品照片</text>
+      <text class="photo-subtitle">拍照或从相册选择</text>
+    </view>
+  </button>
+
+  <view wx:if="{{imagePath}}" class="photo-actions">
+    <button class="secondary-button photo-action" bindtap="choosePhoto">更换照片</button>
+    <button class="secondary-button photo-action danger" bindtap="removePhoto">移除照片</button>
+  </view>
+
+  <view class="form">
+    <label class="field {{focusField === 'title' ? 'is-focus' : ''}}">
+      <text class="field-label">菜名</text>
+      <input
+        class="field-input"
+        value="{{title}}"
+        placeholder="例如：番茄炒蛋"
+        placeholder-class="placeholder"
+        maxlength="40"
+        data-field="title"
+        bindfocus="onFieldFocus"
+        bindblur="onFieldBlur"
+        bindinput="onInput"
+      />
+    </label>
+
+    <view class="field">
+      <text class="field-label">分类</text>
+      <picker mode="selector" range="{{categories}}" range-key="name" value="{{categoryIndex}}" bindchange="onCategoryChange">
+        <view class="picker-value">
+          <text>{{categoryName}}</text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <label class="field field-text {{focusField === 'ingredients' ? 'is-focus' : ''}}">
+      <text class="field-label">食材</text>
+      <textarea
+        class="field-textarea small"
+        value="{{ingredients}}"
+        placeholder="一行一个也可以，例如：鸡蛋 2 个、番茄 1 个"
+        placeholder-class="placeholder"
+        maxlength="-1"
+        auto-height
+        data-field="ingredients"
+        bindfocus="onFieldFocus"
+        bindblur="onFieldBlur"
+        bindinput="onInput"
+      />
+    </label>
+
+    <label class="field field-text {{focusField === 'steps' ? 'is-focus' : ''}}">
+      <text class="field-label">做法</text>
+      <textarea
+        class="field-textarea"
+        value="{{steps}}"
+        placeholder="写下你自己的做法，不用太正式"
+        placeholder-class="placeholder"
+        maxlength="-1"
+        auto-height
+        data-field="steps"
+        bindfocus="onFieldFocus"
+        bindblur="onFieldBlur"
+        bindinput="onInput"
+      />
+    </label>
+
+    <label class="field field-text {{focusField === 'note' ? 'is-focus' : ''}}">
+      <text class="field-label">备注</text>
+      <textarea
+        class="field-textarea small"
+        value="{{note}}"
+        placeholder="比如：适合带饭、孩子爱吃、下次少放盐"
+        placeholder-class="placeholder"
+        maxlength="-1"
+        auto-height
+        data-field="note"
+        bindfocus="onFieldFocus"
+        bindblur="onFieldBlur"
+        bindinput="onInput"
+      />
+    </label>
+  </view>
+
+  <view class="save-bar">
+    <button class="primary-button save-button" loading="{{saving}}" disabled="{{saving}}" bindtap="saveRecipe">
+      {{saving ? '保存中' : '保存菜谱'}}
+    </button>
+  </view>
+</view>

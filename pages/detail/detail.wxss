@@ -1,0 +1,156 @@
+.detail-page {
+  padding-bottom: 86rpx;
+}
+
+.hero-image,
+.hero-placeholder {
+  width: 100%;
+  height: 420rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 10rpx 24rpx rgba(27, 36, 29, 0.06);
+}
+
+.hero-image {
+  background: #e8eee8;
+}
+
+.hero-placeholder {
+  background: #edf4ef;
+  color: #2f7d4a;
+  font-size: 76rpx;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headline {
+  margin-top: 30rpx;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24rpx;
+}
+
+.title-block {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.category {
+  align-self: flex-start;
+  max-width: 160rpx;
+  height: 40rpx;
+  padding: 0 14rpx;
+  border-radius: 999rpx;
+  background: #edf4ef;
+  color: #2f7d4a;
+  font-size: 22rpx;
+  font-weight: 700;
+  line-height: 40rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category.category-meat {
+  background: #fff2ef;
+  color: #ad4638;
+}
+
+.category.category-staple,
+.category.category-dessert {
+  background: #fff5df;
+  color: #9f6817;
+}
+
+.category.category-soup {
+  background: #edf6fc;
+  color: #3a7598;
+}
+
+.title {
+  margin-top: 12rpx;
+  color: #182019;
+  font-size: 44rpx;
+  font-weight: 800;
+  line-height: 1.25;
+  word-break: break-all;
+}
+
+.updated {
+  margin-top: 10rpx;
+  color: #7d877e;
+  font-size: 24rpx;
+}
+
+.edit-button {
+  width: 132rpx;
+  flex: none;
+  margin-top: 46rpx;
+}
+
+.section {
+  margin-top: 24rpx;
+  padding: 26rpx;
+  border: 2rpx solid #edf0eb;
+  border-radius: 16rpx;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  box-shadow: 0 8rpx 22rpx rgba(27, 36, 29, 0.04);
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+}
+
+.section-icon {
+  width: 38rpx;
+  height: 38rpx;
+  border-radius: 8rpx;
+  background: #edf4ef;
+  color: #2f7d4a;
+  font-size: 22rpx;
+  font-weight: 800;
+  line-height: 38rpx;
+  text-align: center;
+}
+
+.section-title {
+  color: #2f7d4a;
+  font-size: 30rpx;
+  font-weight: 800;
+}
+
+.section-content {
+  color: #29332c;
+  font-size: 29rpx;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.section-content.is-empty {
+  color: #8f998f;
+}
+
+.delete-button {
+  width: 100%;
+  height: 84rpx;
+  margin-top: 64rpx;
+  border: 2rpx solid #efb8af;
+  border-radius: 8rpx;
+  color: #b94a3a;
+  background: #fffdfc;
+  font-size: 28rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

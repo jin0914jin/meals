@@ -1,0 +1,157 @@
+.edit-page {
+  padding-bottom: 158rpx;
+}
+
+.photo-area {
+  width: 100%;
+  height: 390rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
+  border: 2rpx dashed #d9ded5;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10rpx 26rpx rgba(27, 36, 29, 0.05);
+}
+
+.photo-preview {
+  width: 100%;
+  height: 100%;
+  border-radius: 20rpx;
+}
+
+.photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.photo-icon {
+  width: 82rpx;
+  height: 82rpx;
+  border: 4rpx solid #2f7d4a;
+  border-radius: 18rpx;
+  color: #2f7d4a;
+  font-size: 30rpx;
+  font-weight: 800;
+  line-height: 74rpx;
+  text-align: center;
+}
+
+.photo-title {
+  color: #26312a;
+  font-size: 32rpx;
+  font-weight: 800;
+}
+
+.photo-subtitle {
+  color: #7d877e;
+  font-size: 26rpx;
+}
+
+.photo-actions {
+  margin-top: 18rpx;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+}
+
+.photo-action {
+  width: 100%;
+}
+
+.photo-action.danger {
+  color: #b94a3a;
+  border-color: #efb8af;
+  background: #fff9f7;
+}
+
+.form {
+  margin-top: 28rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.field {
+  padding: 24rpx;
+  border: 2rpx solid #e3e8e1;
+  border-radius: 16rpx;
+  background: #ffffff;
+  display: grid;
+  grid-template-columns: 108rpx 1fr;
+  gap: 18rpx;
+  box-shadow: 0 8rpx 22rpx rgba(27, 36, 29, 0.04);
+}
+
+.field.is-focus {
+  border-color: #9bc9a6;
+  background: #fffef9;
+}
+
+.field.field-text .field-label {
+  padding-top: 12rpx;
+  line-height: 40rpx;
+}
+
+.field-label {
+  color: #29332c;
+  font-size: 27rpx;
+  font-weight: 800;
+  line-height: 66rpx;
+}
+
+.field-input {
+  width: 100%;
+  min-height: 66rpx;
+  color: #182019;
+  font-size: 31rpx;
+}
+
+.field-textarea {
+  width: 100%;
+  min-height: 220rpx;
+  color: #182019;
+  font-size: 29rpx;
+  line-height: 1.65;
+  padding-top: 10rpx;
+}
+
+.field-textarea.small {
+  min-height: 136rpx;
+}
+
+.placeholder {
+  color: #9aa49b;
+}
+
+.picker-value {
+  min-height: 66rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #182019;
+  font-size: 30rpx;
+}
+
+.picker-arrow {
+  color: #8f998f;
+  font-size: 42rpx;
+}
+
+.save-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18rpx 28rpx calc(18rpx + env(safe-area-inset-bottom));
+  background: rgba(251, 250, 245, 0.96);
+  border-top: 2rpx solid #edf0eb;
+  box-shadow: 0 -12rpx 26rpx rgba(27, 36, 29, 0.05);
+}
+
+.save-button {
+  width: 100%;
+}

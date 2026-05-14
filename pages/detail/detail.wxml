@@ -1,0 +1,41 @@
+<view class="page detail-page" wx:if="{{recipe}}">
+  <image wx:if="{{recipe.imagePath}}" class="hero-image" src="{{recipe.imagePath}}" mode="aspectFill" />
+  <view wx:else class="hero-placeholder">
+    <text>{{recipe.coverText}}</text>
+  </view>
+
+  <view class="headline">
+    <view class="title-block">
+      <text class="category category-{{recipe.category}}">{{categoryName}}</text>
+      <text class="title">{{recipe.title}}</text>
+      <text class="updated">更新于 {{updatedText || '刚刚'}}</text>
+    </view>
+    <button class="secondary-button edit-button" bindtap="goEdit">编辑</button>
+  </view>
+
+  <view class="section">
+    <view class="section-heading">
+      <text class="section-icon">食</text>
+      <text class="section-title">食材</text>
+    </view>
+    <text class="section-content {{recipe.ingredients ? '' : 'is-empty'}}">{{recipe.ingredients || '还没有记录食材'}}</text>
+  </view>
+
+  <view class="section">
+    <view class="section-heading">
+      <text class="section-icon">做</text>
+      <text class="section-title">做法</text>
+    </view>
+    <text class="section-content {{recipe.steps ? '' : 'is-empty'}}">{{recipe.steps || '还没有记录做法'}}</text>
+  </view>
+
+  <view class="section">
+    <view class="section-heading">
+      <text class="section-icon">记</text>
+      <text class="section-title">备注</text>
+    </view>
+    <text class="section-content {{recipe.note ? '' : 'is-empty'}}">{{recipe.note || '还没有备注'}}</text>
+  </view>
+
+  <button class="delete-button" bindtap="deleteRecipe">删除菜谱</button>
+</view>
