@@ -1,6 +1,5 @@
 const storage = require('../../utils/storage')
 const categoryUtils = require('../../utils/categories')
-const formatUtils = require('../../utils/format')
 const mealSetUtils = require('../../utils/mealSet')
 
 const EMPTY_RECIPE = {
@@ -21,9 +20,25 @@ const EMPTY_MEAL_SET = {
   recipes: []
 }
 
+const PRIMARY_CATEGORY_KEYS = ['all', 'meat', 'vegetable', 'soup', 'quick']
+const MORE_CATEGORY_KEYS = ['staple', 'dessert', 'breakfast', 'home', 'rice', 'favorite']
+const CATEGORY_ICON_PATH = {
+  staple: '/assets/ui/icon-staple.png',
+  dessert: '/assets/ui/icon-dessert.png',
+  breakfast: '/assets/ui/icon-breakfast.png',
+  home: '/assets/ui/icon-home.png',
+  rice: '/assets/ui/icon-rice.png',
+  favorite: '/assets/ui/icon-favorite.png'
+}
+
 Page({
   data: {
-    categories: categoryUtils.filterCategories,
+    primaryCategories: [],
+    moreCategories: [],
+    categoriesExpanded: true,
+    moreCategoriesActiveClass: '',
+    categoryToggleText: '更多分类',
+    categoryToggleIcon: '⌄',
     activeCategory: 'all',
     query: '',
     recipes: [],
@@ -32,8 +47,6 @@ Page({
     emptyText: '先把最近做过的一道菜拍下来，慢慢就会变成你的私人菜单。',
     showCreateEmpty: true,
     showFilterActions: false,
-    activeCategoryName: '全部',
-    randomCardScopeText: '全部菜谱',
     randomAvailableText: '先保存几道常做菜',
     filteredCountText: '0 道菜',
     mealHintText: '至少 2 道菜可生成套餐',
@@ -54,9 +67,7 @@ Page({
     const recipes = storage.readRecipes()
       .map(recipe => Object.assign({}, recipe, {
         coverText: (recipe.title || '菜').slice(0, 1),
-        categoryName: categoryUtils.getCategoryName(recipe.category),
-        updatedText: formatUtils.formatDateTime(recipe.updatedAt) || '刚刚更新',
-        summaryText: recipe.ingredients || recipe.note || '还没有记录食材和备注'
+        categoryName: categoryUtils.getCategoryName(recipe.category)
       }))
       .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
 
@@ -77,6 +88,14 @@ Page({
     })
   },
 
+  toggleCategories() {
+    this.setData({
+      categoriesExpanded: !this.data.categoriesExpanded
+    }, () => {
+      this.applyFilters()
+    })
+  },
+
   applyFilters() {
     const query = this.data.query.trim().toLowerCase()
     const activeCategory = this.data.activeCategory
@@ -84,43 +103,67 @@ Page({
     const categories = categoryUtils.filterCategories.map(category => ({
       key: category.key,
       name: category.name,
+      iconPath: CATEGORY_ICON_PATH[category.key] || '',
       activeClass: category.key === activeCategory ? 'is-active' : ''
     }))
+    const primaryCategories = categories.filter(category => PRIMARY_CATEGORY_KEYS.includes(category.key))
+    const moreCategories = MORE_CATEGORY_KEYS
+      .map(key => categories.find(category => category.key === key))
+      .filter(Boolean)
+    const moreCategoryActive = moreCategories.some(category => category.key === activeCategory)
 
-    const filteredRecipes = this.data.recipes.filter(recipe => {
-      const matchCategory = activeCategory === 'all' || recipe.category === activeCategory
-      const searchSource = `${recipe.title || ''} ${recipe.ingredients || ''} ${recipe.note || ''}`.toLowerCase()
-      const matchQuery = !query || searchSource.includes(query)
-      return matchCategory && matchQuery
-    })
+    const filteredRecipePool = this.getFilteredRecipePool(query, activeCategory)
+    const filteredRecipes = filteredRecipePool.map(recipe => ({
+      id: recipe.id,
+      title: recipe.title,
+      category: recipe.category,
+      categoryName: recipe.categoryName,
+      coverText: recipe.coverText,
+      imagePath: recipe.imagePath
+    }))
 
     const hasFilter = activeCategory !== 'all' || Boolean(query)
-    const randomCount = hasFilter ? filteredRecipes.length : this.data.recipes.length
+    const randomCount = hasFilter ? filteredRecipePool.length : this.data.recipes.length
     const activeCategoryItem = categoryUtils.filterCategories.find(category => category.key === activeCategory)
     const activeCategoryName = activeCategoryItem ? activeCategoryItem.name : '全部'
     const totalCount = this.data.recipes.length
     const mealHintText = totalCount >= 2 ? '缺少某类也会自动补位' : '再加 ' + (2 - totalCount) + ' 道可生成套餐'
 
     this.setData({
-      categories,
+      primaryCategories,
+      moreCategories,
+      moreCategoriesActiveClass: moreCategoryActive ? 'is-active' : '',
+      categoryToggleText: '更多分类',
+      categoryToggleIcon: '⌄',
       filteredRecipes,
       emptyTitle: this.data.recipes.length ? '没有找到符合条件的菜' : '还没有菜谱',
       emptyText: this.data.recipes.length ? '换个关键词或分类试试。' : '先把最近做过的一道菜拍下来，慢慢就会变成你的私人菜单。',
       showCreateEmpty: !this.data.recipes.length,
       showFilterActions: Boolean(this.data.recipes.length),
-      activeCategoryName,
-      randomCardScopeText: hasFilter ? '当前筛选' : '全部菜谱',
       randomAvailableText: this.data.recipes.length ? `${randomCount} 道可选` : '先保存几道常做菜',
-      filteredCountText: `${filteredRecipes.length} 道菜`,
+      filteredCountText: `${activeCategoryName} · ${filteredRecipes.length} 道`,
       mealHintText,
       canPickRandom: randomCount > 0,
       canGenerateMeal: this.data.recipes.length >= 2
     })
   },
 
+  getFilteredRecipePool(query, activeCategory) {
+    const normalizedQuery = typeof query === 'string' ? query : this.data.query.trim().toLowerCase()
+    const categoryKey = activeCategory || this.data.activeCategory
+
+    return this.data.recipes.filter(recipe => {
+      const matchCategory = categoryKey === 'all' || recipe.category === categoryKey
+      const searchSource = `${recipe.title || ''} ${recipe.ingredients || ''} ${recipe.note || ''}`.toLowerCase()
+      const matchQuery = !normalizedQuery || searchSource.includes(normalizedQuery)
+      return matchCategory && matchQuery
+    })
+  },
+
   pickRandomRecipe() {
-    const hasFilter = this.data.activeCategory !== 'all' || Boolean(this.data.query.trim())
-    const pool = hasFilter ? this.data.filteredRecipes : this.data.recipes
+    const query = this.data.query.trim().toLowerCase()
+    const hasFilter = this.data.activeCategory !== 'all' || Boolean(query)
+    const pool = hasFilter ? this.getFilteredRecipePool(query, this.data.activeCategory) : this.data.recipes
 
     if (!this.data.recipes.length) {
       wx.showToast({

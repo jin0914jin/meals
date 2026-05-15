@@ -4,8 +4,11 @@ const categories = [
   { key: 'soup', name: '汤' },
   { key: 'staple', name: '主食' },
   { key: 'breakfast', name: '早餐' },
-  { key: 'dessert', name: '甜品' },
+  { key: 'dessert', name: '甜点' },
   { key: 'quick', name: '快手菜' },
+  { key: 'home', name: '家常菜' },
+  { key: 'rice', name: '下饭菜' },
+  { key: 'favorite', name: '收藏' },
   { key: 'other', name: '其他' }
 ]
 

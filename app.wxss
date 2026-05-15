@@ -1,8 +1,8 @@
 page {
   min-height: 100vh;
-  background: #fbfaf5;
-  color: #182019;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #fbf4e6;
+  color: #725d42;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
   font-size: 30rpx;
   line-height: 1.5;
 }
@@ -35,34 +35,36 @@ button::after {
 }
 
 .muted {
-  color: #7b8479;
+  color: #9f927d;
 }
 
 .primary-button {
   min-height: 88rpx;
   padding: 0 34rpx;
-  border-radius: 10rpx;
-  background: #2f7d4a;
-  color: #ffffff;
+  border-radius: 999rpx;
+  background: #ffcc00;
+  color: #725d42;
   font-size: 30rpx;
-  font-weight: 700;
+  font-weight: 900;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 12rpx 26rpx rgba(47, 125, 74, 0.15);
+  box-shadow: 0 7rpx 0 0 #bdaea0;
 }
 
 .secondary-button {
   height: 84rpx;
   padding: 0 30rpx;
-  border: 2rpx solid #d8e6dc;
-  border-radius: 10rpx;
-  color: #2f7d4a;
+  border: 2rpx solid #c4b89e;
+  border-radius: 999rpx;
+  color: #725d42;
   font-size: 28rpx;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
+  background: #fffdf7;
+  box-shadow: 0 6rpx 0 0 #d4c9b4;
 }
 
 .primary-button[disabled],
