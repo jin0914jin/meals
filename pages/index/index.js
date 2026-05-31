@@ -1,6 +1,7 @@
 const storage = require('../../utils/storage')
 const categoryUtils = require('../../utils/categories')
 const mealSetUtils = require('../../utils/mealSet')
+const { formatDateTime } = require('../../utils/format')
 
 const EMPTY_RECIPE = {
   id: '',
@@ -30,6 +31,129 @@ const CATEGORY_ICON_PATH = {
   rice: '/assets/ui/icon-rice.png',
   favorite: '/assets/ui/icon-favorite.png'
 }
+
+const DEMO_RECIPES = [
+  {
+    id: 'demo_beef_potato',
+    title: '番茄牛腩炖土豆',
+    category: 'meat',
+    categoryName: '荤菜',
+    imagePath: '/assets/demo-recipes/beef-potato.png',
+    ingredients: '牛腩、番茄、土豆',
+    note: '浓郁下饭',
+    updatedAt: '2026-05-20T18:30:00'
+  },
+  {
+    id: 'demo_shrimp',
+    title: '蒜蓉粉丝蒸虾',
+    category: 'meat',
+    categoryName: '海鲜',
+    imagePath: '/assets/demo-recipes/shrimp-vermicelli.png',
+    ingredients: '鲜虾、粉丝、蒜蓉',
+    note: '宴客也好看',
+    updatedAt: '2026-05-18T12:45:00'
+  },
+  {
+    id: 'demo_greens',
+    title: '清炒时令小青菜',
+    category: 'vegetable',
+    categoryName: '素菜',
+    imagePath: '/assets/demo-recipes/greens.png',
+    ingredients: '青菜、蒜片',
+    note: '清爽快手',
+    updatedAt: '2026-05-17T19:10:00'
+  },
+  {
+    id: 'demo_soup',
+    title: '紫菜蛋花汤',
+    category: 'soup',
+    categoryName: '汤',
+    imagePath: '/assets/demo-recipes/seaweed-soup.png',
+    ingredients: '紫菜、鸡蛋、葱花',
+    note: '十分钟上桌',
+    updatedAt: '2026-05-15T11:20:00'
+  },
+  {
+    id: 'demo_tomato_egg',
+    title: '番茄炒蛋',
+    category: 'quick',
+    categoryName: '快手菜',
+    imagePath: '/assets/demo-recipes/beef-potato.png',
+    ingredients: '番茄、鸡蛋',
+    note: '家常酸甜',
+    updatedAt: '2026-05-14T11:20:00'
+  },
+  {
+    id: 'demo_rice',
+    title: '蛋炒饭',
+    category: 'staple',
+    categoryName: '主食',
+    imagePath: '/assets/demo-recipes/shrimp-vermicelli.png',
+    ingredients: '米饭、鸡蛋、青豆',
+    note: '简单美味',
+    updatedAt: '2026-05-13T09:30:00'
+  },
+  {
+    id: 'demo_breakfast',
+    title: '葱花鸡蛋饼',
+    category: 'breakfast',
+    categoryName: '早餐',
+    imagePath: '/assets/demo-recipes/greens.png',
+    ingredients: '面粉、鸡蛋、葱花',
+    note: '早餐热乎',
+    updatedAt: '2026-05-12T08:00:00'
+  },
+  {
+    id: 'demo_dessert',
+    title: '桂花酒酿圆子',
+    category: 'dessert',
+    categoryName: '甜点',
+    imagePath: '/assets/demo-recipes/seaweed-soup.png',
+    ingredients: '酒酿、小圆子、桂花',
+    note: '甜而不腻',
+    updatedAt: '2026-05-11T20:00:00'
+  },
+  {
+    id: 'demo_home',
+    title: '家常红烧肉',
+    category: 'home',
+    categoryName: '家常菜',
+    imagePath: '/assets/demo-recipes/beef-potato.png',
+    ingredients: '五花肉、冰糖、葱姜',
+    note: '入口即化',
+    updatedAt: '2026-05-10T18:00:00'
+  },
+  {
+    id: 'demo_rice_friend',
+    title: '辣椒炒肉',
+    category: 'rice',
+    categoryName: '下饭菜',
+    imagePath: '/assets/demo-recipes/greens.png',
+    ingredients: '青椒、猪肉',
+    note: '很下饭',
+    updatedAt: '2026-05-09T18:00:00'
+  },
+  {
+    id: 'demo_favorite',
+    title: '收藏款咖喱鸡',
+    category: 'favorite',
+    categoryName: '收藏',
+    imagePath: '/assets/demo-recipes/shrimp-vermicelli.png',
+    ingredients: '鸡腿、咖喱、土豆',
+    note: '常做的一道',
+    updatedAt: '2026-05-08T18:00:00'
+  },
+  {
+    id: 'demo_other',
+    title: '凉拌黄瓜',
+    category: 'quick',
+    categoryName: '快手菜',
+    imagePath: '/assets/demo-recipes/greens.png',
+    ingredients: '黄瓜、蒜末、香醋',
+    note: '清脆爽口',
+    updatedAt: '2026-05-07T18:00:00'
+  }
+]
 
 Page({
   data: {
@@ -64,10 +188,12 @@ Page({
   },
 
   loadRecipes() {
-    const recipes = storage.readRecipes()
+    const storedRecipes = storage.readRecipes()
+    const sourceRecipes = storedRecipes.length ? storedRecipes : DEMO_RECIPES
+    const recipes = sourceRecipes
       .map(recipe => Object.assign({}, recipe, {
         coverText: (recipe.title || '菜').slice(0, 1),
-        categoryName: categoryUtils.getCategoryName(recipe.category)
+        categoryName: recipe.categoryName || categoryUtils.getCategoryName(recipe.category)
       }))
       .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
 
@@ -119,7 +245,9 @@ Page({
       category: recipe.category,
       categoryName: recipe.categoryName,
       coverText: recipe.coverText,
-      imagePath: recipe.imagePath
+      imagePath: recipe.imagePath,
+      updatedText: formatDateTime(recipe.updatedAt),
+      summary: this.buildRecipeSummary(recipe)
     }))
 
     const hasFilter = activeCategory !== 'all' || Boolean(query)
@@ -146,6 +274,11 @@ Page({
       canPickRandom: randomCount > 0,
       canGenerateMeal: this.data.recipes.length >= 2
     })
+  },
+
+  buildRecipeSummary(recipe) {
+    const source = recipe.ingredients || recipe.note || '还没有记录食材和备注'
+    return source.replace(/\s+/g, ' ')
   },
 
   getFilteredRecipePool(query, activeCategory) {
@@ -223,6 +356,15 @@ Page({
     }
 
     const id = this.data.randomRecipe.id
+
+    if (id.indexOf('demo_') === 0) {
+      wx.showToast({
+        title: '这是演示菜谱',
+        icon: 'none'
+      })
+      return
+    }
+
     this.closeRandomPanel()
     wx.navigateTo({
       url: '/pages/detail/detail?id=' + id
@@ -237,6 +379,15 @@ Page({
 
   goDetail(event) {
     const { id } = event.currentTarget.dataset
+
+    if (id && id.indexOf('demo_') === 0) {
+      wx.showToast({
+        title: '这是演示菜谱',
+        icon: 'none'
+      })
+      return
+    }
+
     wx.navigateTo({
       url: '/pages/detail/detail?id=' + id
     })

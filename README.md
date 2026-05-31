@@ -50,6 +50,8 @@
 - [设计准则](docs/06-design-guidelines.md)
 - [开发插件与 Skills 准备](docs/06-development-tools.md)
 - [参考分析：下厨房+](docs/07-reference-analysis.md)
+- [UI 美术资产研究记录](docs/08-ui-asset-study.md)
+- [Figma 菜谱 UI 设计规格](docs/09-figma-cookbook-ui-spec.md)
 
 ## 第一版定位
 

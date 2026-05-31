@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="340" height="118" viewBox="0 0 340 118" fill="none">
+  
+<defs>
+  <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+    <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#6b4a2c" flood-opacity="0.16"/>
+  </filter>
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="8"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer>
+      <feFuncA type="table" tableValues="0 0.08"/>
+    </feComponentTransfer>
+  </filter>
+  <linearGradient id="warmPaper" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#fff9ea"/>
+    <stop offset="1" stop-color="#f3dfba"/>
+  </linearGradient>
+  <linearGradient id="tealButton" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#28cfc1"/>
+    <stop offset="1" stop-color="#10a99d"/>
+  </linearGradient>
+  <linearGradient id="yellowButton" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#ffe082"/>
+    <stop offset="1" stop-color="#f7be31"/>
+  </linearGradient>
+</defs>
+  
+  <path d="M64 18C70 6 82 1 97 4l139 3c22 1 43 8 56 22 18 20 13 49-1 65-13 15-43 21-79 18l-121-3C54 108 26 94 19 70 12 48 32 26 64 18Z" fill="#c97932" filter="url(#softShadow)"/>
+  <path d="M68 25C74 15 89 12 105 15l132 3c18 1 35 7 45 18 11 13 9 34-2 45-13 12-34 17-66 14l-119-3C63 91 38 81 33 62 28 46 45 30 68 25Z" fill="#e19a48"/>
+  <path d="M47 53c52 9 109 12 171 8 32-2 55 1 69 8" stroke="#a95b22" stroke-width="5" stroke-linecap="round" opacity=".35"/>
+  <path d="M73 31c42 9 100 13 173 9" stroke="#f4c278" stroke-width="4" stroke-linecap="round" opacity=".56"/>
+  <circle cx="87" cy="33" r="8" fill="#70411f"/>
+  <circle cx="257" cy="38" r="8" fill="#70411f"/>
+  <path d="M87 33C108 6 139-1 170 13M257 38C233 8 201 0 170 13" stroke="#7b4b2a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M285 83c-16 7-25 17-27 30 18-3 29-11 32-28 7 9 17 13 30 13-5-15-16-23-35-15Z" fill="#2ebfac" stroke="#167d73" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M285 84c-1 15-8 24-20 29" stroke="#e7fff8" stroke-width="3" stroke-linecap="round" opacity=".65"/>
+
+</svg>

@@ -1,168 +1,135 @@
-<view class="page index-page">
-  <view class="page-header">
-    <view class="brand-sign">
-      <view class="sign-rope left"></view>
-      <view class="sign-rope right"></view>
-      <text>私人菜谱本</text>
-    </view>
-    <view class="title-row">
-      <text class="page-title">今天吃什么</text>
-      <view class="header-tools">
-        <text class="count">{{recipes.length}} 道菜</text>
-        <button class="add-button" bindtap="goCreate" aria-label="新增菜谱">+</button>
-      </view>
-    </view>
+<view class="home-screen">
+  <image class="home-bg" src="/assets/ui/page-bg.jpg" mode="scaleToFill" />
+
+  <view class="brand-sign">
+    <image class="brand-sign-img" src="/assets/ui/hanging-sign.png" mode="scaleToFill" />
+    <text class="brand-text">私人菜谱本</text>
   </view>
 
-  <view class="search-box">
+  <text class="hero-title">今天吃什么</text>
+  <text class="count-pill">12 道菜</text>
+  <view class="add-fab" hover-class="tap-down" bindtap="goCreate">+</view>
+
+  <view class="search-shell">
+    <image class="search-shell-img" src="/assets/ui/search-shell.png" mode="scaleToFill" />
     <image class="search-icon" src="/assets/ui/icon-search.png" mode="aspectFit" />
-    <input
-      class="search-input"
-      value="{{query}}"
-      placeholder="搜索菜名、食材或备注"
-      placeholder-class="placeholder"
-      confirm-type="search"
-      bindinput="onSearchInput"
-    />
+    <text class="search-placeholder">搜索菜名、食材或备注</text>
+    <input class="search-hit" value="{{query}}" bindinput="onSearchInput" />
   </view>
 
-  <view class="category-board">
-    <view class="category-row">
-      <button
-        wx:for="{{primaryCategories}}"
-        wx:key="key"
-        class="category-pill {{item.activeClass}}"
-        data-key="{{item.key}}"
-        bindtap="onCategoryTap"
-      >
-        {{item.name}}
-      </button>
-      <button class="category-pill category-more {{moreCategoriesActiveClass}}" bindtap="toggleCategories">
-        {{categoryToggleText}} <text class="category-more-icon">{{categoryToggleIcon}}</text>
-      </button>
-    </view>
-    <view wx:if="{{categoriesExpanded}}" class="category-collection">
-      <button
-        wx:for="{{moreCategories}}"
-        wx:key="key"
-        class="category-pill category-collection-pill {{item.activeClass}}"
-        data-key="{{item.key}}"
-        bindtap="onCategoryTap"
-      >
-        <image wx:if="{{item.iconPath}}" class="category-icon" src="{{item.iconPath}}" mode="aspectFit" />
-        <text>{{item.name}}</text>
-      </button>
+  <view class="category-strip">
+    <view class="cat-chip cat-active" hover-class="tap-down" data-key="all" bindtap="onCategoryTap">全部</view>
+    <view class="cat-chip" hover-class="tap-down" data-key="meat" bindtap="onCategoryTap">荤菜</view>
+    <view class="cat-chip" hover-class="tap-down" data-key="vegetable" bindtap="onCategoryTap">素菜</view>
+    <view class="cat-chip cat-soup" hover-class="tap-down" data-key="soup" bindtap="onCategoryTap">汤</view>
+    <view class="cat-chip cat-quick" hover-class="tap-down" data-key="quick" bindtap="onCategoryTap">快手菜</view>
+    <view class="cat-chip cat-more" hover-class="tap-down" bindtap="toggleCategories">更多分类⌄</view>
+  </view>
+
+  <view class="category-panel">
+    <image class="category-panel-img" src="/assets/ui/category-panel.png" mode="scaleToFill" />
+    <view class="category-grid">
+      <view class="category-tile" hover-class="tap-down" data-key="staple" bindtap="onCategoryTap">
+        <image class="category-tile-bg" src="/assets/ui/category-button.png" mode="scaleToFill" />
+        <image class="category-icon" src="/assets/ui/icon-staple.png" mode="aspectFit" />
+        <text>主食</text>
+      </view>
+      <view class="category-tile" hover-class="tap-down" data-key="dessert" bindtap="onCategoryTap">
+        <image class="category-tile-bg" src="/assets/ui/category-button.png" mode="scaleToFill" />
+        <image class="category-icon" src="/assets/ui/icon-dessert.png" mode="aspectFit" />
+        <text>甜点</text>
+      </view>
+      <view class="category-tile" hover-class="tap-down" data-key="breakfast" bindtap="onCategoryTap">
+        <image class="category-tile-bg" src="/assets/ui/category-button.png" mode="scaleToFill" />
+        <image class="category-icon" src="/assets/ui/icon-breakfast.png" mode="aspectFit" />
+        <text>早餐</text>
+      </view>
+      <view class="category-tile" hover-class="tap-down" data-key="home" bindtap="onCategoryTap">
+        <image class="category-tile-bg" src="/assets/ui/category-button.png" mode="scaleToFill" />
+        <image class="category-icon" src="/assets/ui/icon-home.png" mode="aspectFit" />
+        <text>家常菜</text>
+      </view>
+      <view class="category-tile" hover-class="tap-down" data-key="rice" bindtap="onCategoryTap">
+        <image class="category-tile-bg" src="/assets/ui/category-button.png" mode="scaleToFill" />
+        <image class="category-icon" src="/assets/ui/icon-rice.png" mode="aspectFit" />
+        <text>下饭菜</text>
+      </view>
+      <view class="category-tile" hover-class="tap-down" data-key="favorite" bindtap="onCategoryTap">
+        <image class="category-tile-bg" src="/assets/ui/category-button.png" mode="scaleToFill" />
+        <image class="category-icon" src="/assets/ui/icon-favorite.png" mode="aspectFit" />
+        <text>收藏</text>
+      </view>
     </view>
   </view>
 
-  <view class="decision-bar">
-    <view class="decision-scene"></view>
-    <view class="decision-copy">
-      <text class="decision-title">不知道吃什么？</text>
-      <text class="decision-meta">从你的菜谱里抽一道，或配一套今天的饭</text>
-    </view>
-    <view class="decision-actions">
-      <button class="decision-button secondary-random" disabled="{{!canPickRandom}}" bindtap="pickRandomRecipe">
-        <image class="decision-button-icon" src="/assets/ui/icon-shuffle.png" mode="aspectFit" />
+  <view class="decision-card">
+    <image class="decision-card-img" src="/assets/ui/decision-board.png" mode="scaleToFill" />
+    <text class="decision-title">不知道吃什么？</text>
+    <text class="decision-subtitle">从你的菜谱里抽一道，或配一套今天的饭</text>
+    <view class="decision-btn decision-random" hover-class="tap-down" bindtap="pickRandomRecipe">
+      <image class="decision-btn-img" src="/assets/ui/button-teal.png" mode="scaleToFill" />
+      <view class="decision-content decision-content-random">
+        <image class="decision-icon" src="/assets/ui/icon-shuffle.png" mode="aspectFit" />
         <text>随机一道</text>
-      </button>
-      <button class="decision-button" disabled="{{!canGenerateMeal}}" bindtap="generateMealSet">
-        <image class="decision-button-icon cloche" src="/assets/ui/icon-cloche.png" mode="aspectFit" />
+      </view>
+    </view>
+    <view class="decision-btn decision-meal" hover-class="tap-down" bindtap="generateMealSet">
+      <image class="decision-btn-img" src="/assets/ui/button-yellow.png" mode="scaleToFill" />
+      <view class="decision-content decision-content-meal">
+        <image class="decision-icon cloche" src="/assets/ui/icon-cloche.png" mode="aspectFit" />
         <text>生成菜谱</text>
-      </button>
+      </view>
     </view>
   </view>
 
-  <view wx:if="{{filteredRecipes.length}}" class="recipe-section">
-    <view class="list-heading">
-      <text class="list-title">我的菜谱</text>
-      <text class="list-count">{{filteredCountText}}</text>
-    </view>
-
-    <view class="recipe-list">
-      <button
-        wx:for="{{filteredRecipes}}"
-        wx:key="id"
-        class="recipe-item"
-        data-id="{{item.id}}"
-        bindtap="goDetail"
-      >
-        <view class="recipe-cover">
-          <image wx:if="{{item.imagePath}}" class="recipe-image" src="{{item.imagePath}}" mode="aspectFill" lazy-load="true" />
-          <view wx:else class="recipe-placeholder">
-            <text>{{item.coverText}}</text>
-          </view>
-          <text class="recipe-category category-{{item.category}}">{{item.categoryName}}</text>
-        </view>
-        <view class="recipe-main">
-          <text class="recipe-title">{{item.title}}</text>
-        </view>
-      </button>
-    </view>
+  <view class="list-head">
+    <text class="list-title">我的菜谱</text>
+    <text class="list-count">全部 · 12 道</text>
   </view>
 
-  <view wx:else class="empty-state">
-    <view class="empty-mark">菜</view>
-    <text class="empty-title">{{emptyTitle}}</text>
-    <text class="empty-text">{{emptyText}}</text>
-    <button wx:if="{{showCreateEmpty}}" class="primary-button empty-action" bindtap="goCreate">新增第一道菜</button>
-    <view wx:if="{{showFilterActions}}" class="empty-actions">
-      <button class="secondary-button empty-small-action" bindtap="clearSearch">清空搜索</button>
-      <button class="primary-button empty-small-action" bindtap="showAllRecipes">查看全部</button>
-    </view>
+  <view class="recipe-card card-1" hover-class="tap-down" data-id="demo_beef_potato" bindtap="goDetail">
+    <image class="recipe-card-bg" src="/assets/ui/recipe-card.png" mode="scaleToFill" />
+    <image class="recipe-photo" src="/assets/demo-recipes/beef-potato.png" mode="aspectFill" />
+    <image class="recipe-frame" src="/assets/ui/image-frame.png" mode="scaleToFill" />
+    <text class="recipe-tag">荤菜</text>
+    <text class="recipe-name">番茄牛腩炖土豆</text>
   </view>
 
-  <view wx:if="{{randomVisible}}" class="random-overlay">
-    <view class="random-panel" catchtap="noop">
-      <text class="random-panel-kicker">{{randomScopeText}}抽到</text>
-      <view class="random-panel-cover">
-        <image wx:if="{{randomRecipe.imagePath}}" class="random-panel-image" src="{{randomRecipe.imagePath}}" mode="aspectFill" />
-        <view wx:else class="random-panel-placeholder">{{randomRecipe.coverText}}</view>
-        <text class="random-panel-category category-{{randomRecipe.category}}">{{randomRecipe.categoryName}}</text>
-      </view>
-      <text class="random-panel-title">{{randomRecipe.title}}</text>
-      <text class="random-panel-note">{{randomRecipe.randomNoteText}}</text>
-      <view class="random-panel-actions">
-        <button class="secondary-button random-panel-action" bindtap="pickRandomRecipe">换一道</button>
-        <button class="primary-button random-panel-action" bindtap="goRandomDetail">看做法</button>
-      </view>
-      <button class="random-close" bindtap="closeRandomPanel">关闭</button>
-    </view>
+  <view class="recipe-card card-2" hover-class="tap-down" data-id="demo_shrimp" bindtap="goDetail">
+    <image class="recipe-card-bg" src="/assets/ui/recipe-card.png" mode="scaleToFill" />
+    <image class="recipe-photo" src="/assets/demo-recipes/shrimp-vermicelli.png" mode="aspectFill" />
+    <image class="recipe-frame" src="/assets/ui/image-frame.png" mode="scaleToFill" />
+    <text class="recipe-tag">海鲜</text>
+    <text class="recipe-name">蒜蓉粉丝蒸虾</text>
   </view>
 
-  <view wx:if="{{mealSetVisible}}" class="random-overlay">
-    <view class="meal-panel" catchtap="noop">
-      <text class="random-panel-kicker">今天这套可以</text>
-      <text class="meal-title">{{mealSet.title}}</text>
-      <text class="meal-subtitle">{{mealSet.subtitle}}</text>
+  <view class="recipe-card card-3" hover-class="tap-down" data-id="demo_greens" bindtap="goDetail">
+    <image class="recipe-card-bg" src="/assets/ui/recipe-card.png" mode="scaleToFill" />
+    <image class="recipe-photo" src="/assets/demo-recipes/greens.png" mode="aspectFill" />
+    <image class="recipe-frame" src="/assets/ui/image-frame.png" mode="scaleToFill" />
+    <text class="recipe-tag">素菜</text>
+    <text class="recipe-name">清炒时令小青菜</text>
+  </view>
 
-      <view class="meal-list">
-        <button
-          wx:for="{{mealSet.recipes}}"
-          wx:key="id"
-          class="meal-item"
-          data-id="{{item.id}}"
-          bindtap="goMealRecipeDetail"
-        >
-          <image wx:if="{{item.imagePath}}" class="meal-image" src="{{item.imagePath}}" mode="aspectFill" lazy-load="true" />
-          <view wx:else class="meal-placeholder">{{item.coverText}}</view>
-          <view class="meal-main">
-            <view class="meal-title-row">
-              <text class="meal-slot">{{item.slotLabel}}</text>
-              <text wx:if="{{item.slotStatus}}" class="meal-slot-status">{{item.slotStatus}}</text>
-            </view>
-            <text class="meal-recipe-title">{{item.title}}</text>
-            <text class="meal-category category-{{item.category}}">{{item.categoryName}}</text>
-          </view>
-          <text class="meal-arrow">›</text>
-        </button>
-      </view>
+  <view class="recipe-card card-4" hover-class="tap-down" data-id="demo_soup" bindtap="goDetail">
+    <image class="recipe-card-bg" src="/assets/ui/recipe-card.png" mode="scaleToFill" />
+    <image class="recipe-photo" src="/assets/demo-recipes/seaweed-soup.png" mode="aspectFill" />
+    <image class="recipe-frame" src="/assets/ui/image-frame.png" mode="scaleToFill" />
+    <text class="recipe-tag">汤</text>
+    <text class="recipe-name">紫菜蛋花汤</text>
+  </view>
 
-      <view class="random-panel-actions">
-        <button class="secondary-button random-panel-action" bindtap="generateMealSet">换一套</button>
-        <button class="primary-button random-panel-action" bindtap="closeMealSetPanel">先这样</button>
+  <view wx:if="{{randomVisible}}" class="modal-mask">
+    <view class="modal-panel" catchtap="noop">
+      <image class="modal-bg" src="/assets/ui/popup-panel.png" mode="scaleToFill" />
+      <text class="modal-kicker">{{randomScopeText}}抽到</text>
+      <image wx:if="{{randomRecipe.imagePath}}" class="modal-photo" src="{{randomRecipe.imagePath}}" mode="aspectFill" />
+      <text class="modal-title">{{randomRecipe.title}}</text>
+      <view class="modal-actions">
+        <view class="modal-action" hover-class="tap-down" bindtap="pickRandomRecipe">换一道</view>
+        <view class="modal-action primary" hover-class="tap-down" bindtap="closeRandomPanel">先这样</view>
       </view>
-      <button class="random-close" bindtap="closeMealSetPanel">关闭</button>
+      <view class="modal-close" hover-class="tap-down" bindtap="closeRandomPanel">关闭</view>
     </view>
   </view>
 </view>

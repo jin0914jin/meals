@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="690" height="720" viewBox="0 0 690 720" fill="none">
+  
+<defs>
+  <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+    <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#6b4a2c" flood-opacity="0.16"/>
+  </filter>
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="8"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer>
+      <feFuncA type="table" tableValues="0 0.08"/>
+    </feComponentTransfer>
+  </filter>
+  <linearGradient id="warmPaper" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#fff9ea"/>
+    <stop offset="1" stop-color="#f3dfba"/>
+  </linearGradient>
+  <linearGradient id="tealButton" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#28cfc1"/>
+    <stop offset="1" stop-color="#10a99d"/>
+  </linearGradient>
+  <linearGradient id="yellowButton" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#ffe082"/>
+    <stop offset="1" stop-color="#f7be31"/>
+  </linearGradient>
+</defs>
+  
+  <path d="M38 63C95 8 162 22 205 36c61-34 147-35 205 0 76-26 167-9 219 60 41 55 21 131 3 180 36 88 9 179-64 228 4 75-47 146-133 164-64 14-118-4-159-24-60 29-154 23-204-26-47-46-52-109-36-164-38-72-32-149 12-199C19 184-16 116 38 63Z" fill="#caa878" opacity=".5"/>
+  <path d="M42 50C98 3 160 18 204 34c61-35 144-35 204 1 75-26 161-5 214 62 37 48 21 119 4 172 34 84 7 169-63 215 4 73-46 137-129 154-63 13-116-5-157-26-59 30-148 23-196-23-46-44-51-104-35-158-38-69-31-140 12-188C29 176-11 97 42 50Z" fill="url(#warmPaper)" stroke="#d6b06e" stroke-width="6"/>
+  <path d="M96 88c114 34 255 29 413-4" stroke="#fff9e7" stroke-width="10" stroke-linecap="round" opacity=".65"/>
+  <path d="M108 627c143 22 308 20 456-8" stroke="#dfbe84" stroke-width="6" stroke-linecap="round" opacity=".4"/>
+  <rect width="690" height="720" filter="url(#grain)" opacity=".52"/>
+
+</svg>

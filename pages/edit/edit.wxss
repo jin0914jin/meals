@@ -1,24 +1,24 @@
 .edit-page {
-  padding-bottom: 158rpx;
+  padding-bottom: 166rpx;
 }
 
 .photo-area {
   width: 100%;
-  height: 342rpx;
-  border-radius: 20rpx;
-  background: #ffffff;
-  border: 2rpx dashed #cbdccc;
+  height: 344rpx;
+  border-radius: 34rpx;
+  background: rgb(247, 243, 223);
+  border: 4rpx dashed #c4b89e;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10rpx 26rpx rgba(27, 36, 29, 0.05);
+  box-shadow: 0 8rpx 0 0 #d4c9b4, 0 14rpx 24rpx rgba(121, 79, 39, 0.08);
 }
 
 .photo-preview {
   width: 100%;
   height: 100%;
-  border-radius: 20rpx;
+  border-radius: 30rpx;
 }
 
 .photo-placeholder {
@@ -29,48 +29,50 @@
 }
 
 .photo-icon {
-  width: 82rpx;
-  height: 82rpx;
-  border: 0;
-  border-radius: 18rpx;
-  background: #edf4ef;
-  color: #2f7d4a;
+  width: 84rpx;
+  height: 84rpx;
+  border: 3rpx solid #11a89b;
+  border-radius: 26rpx;
+  background: #e6f9f6;
+  color: #19a99d;
   font-size: 30rpx;
-  font-weight: 800;
-  line-height: 74rpx;
+  font-weight: 900;
+  line-height: 78rpx;
   text-align: center;
+  box-shadow: 0 5rpx 0 0 #b8d9d4;
 }
 
 .photo-title {
-  color: #26312a;
+  color: #794f27;
   font-size: 32rpx;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .photo-subtitle {
-  color: #7d877e;
+  color: #9f927d;
   font-size: 26rpx;
+  font-weight: 700;
 }
 
 .photo-actions {
-  margin-top: 18rpx;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  margin-top: 20rpx;
+  display: flex;
   gap: 16rpx;
 }
 
 .photo-action {
-  width: 100%;
+  flex: 1;
 }
 
 .photo-action.danger {
-  color: #b94a3a;
-  border-color: #efb8af;
+  color: #c94444;
+  border-color: #e05a5a;
   background: #fff9f7;
+  box-shadow: 0 6rpx 0 0 #efb8af;
 }
 
 .form {
-  margin-top: 28rpx;
+  margin-top: 30rpx;
   display: flex;
   flex-direction: column;
   gap: 24rpx;
@@ -78,19 +80,18 @@
 
 .field {
   padding: 24rpx;
-  border: 2rpx solid #e3e8e1;
-  border-radius: 16rpx;
-  background: #ffffff;
+  border: 3rpx solid #c4b89e;
+  border-radius: 28rpx;
+  background: rgb(247, 243, 223);
   display: grid;
   grid-template-columns: 108rpx 1fr;
   gap: 18rpx;
-  box-shadow: 0 8rpx 22rpx rgba(27, 36, 29, 0.04);
+  box-shadow: 0 6rpx 0 0 #d4c9b4;
 }
 
 .field.is-focus {
-  border-color: #8fc39a;
-  background: #ffffff;
-  box-shadow: 0 0 0 4rpx rgba(47, 125, 74, 0.06);
+  border-color: #ffcc00;
+  box-shadow: 0 6rpx 0 0 #e0b800, 0 0 0 6rpx rgba(255, 204, 0, 0.12);
 }
 
 .field.field-text .field-label {
@@ -99,24 +100,26 @@
 }
 
 .field-label {
-  color: #29332c;
+  color: #794f27;
   font-size: 27rpx;
-  font-weight: 800;
+  font-weight: 900;
   line-height: 66rpx;
 }
 
 .field-input {
   width: 100%;
   min-height: 66rpx;
-  color: #182019;
+  color: #4f351f;
   font-size: 31rpx;
+  font-weight: 600;
 }
 
 .field-textarea {
   width: 100%;
   min-height: 220rpx;
-  color: #182019;
+  color: #4f351f;
   font-size: 29rpx;
+  font-weight: 600;
   line-height: 1.65;
   padding-top: 10rpx;
 }
@@ -126,7 +129,8 @@
 }
 
 .placeholder {
-  color: #9aa49b;
+  color: #c4b89e;
+  font-weight: 500;
 }
 
 .picker-value {
@@ -134,13 +138,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #182019;
+  color: #4f351f;
   font-size: 30rpx;
+  font-weight: 700;
 }
 
 .picker-arrow {
   color: #8f998f;
   font-size: 42rpx;
+  font-weight: 900;
 }
 
 .save-bar {
@@ -148,10 +154,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 18rpx 28rpx calc(18rpx + env(safe-area-inset-bottom));
-  background: rgba(251, 250, 245, 0.96);
-  border-top: 2rpx solid #edf0eb;
-  box-shadow: 0 -12rpx 26rpx rgba(27, 36, 29, 0.05);
+  padding: 18rpx 30rpx calc(18rpx + env(safe-area-inset-bottom));
+  background: rgba(248, 248, 240, 0.96);
+  border-top: 3rpx solid #e8e2d6;
+  box-shadow: 0 -12rpx 26rpx rgba(121, 79, 39, 0.08);
 }
 
 .save-button {

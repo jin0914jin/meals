@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="1334" viewBox="0 0 750 1334" fill="none">
+  
+<defs>
+  <pattern id="ricePattern" width="86" height="70" patternUnits="userSpaceOnUse">
+    <ellipse cx="19" cy="14" rx="3.5" ry="9" fill="#e9c98c" opacity=".35" transform="rotate(-24 19 14)"/>
+    <ellipse cx="68" cy="42" rx="3" ry="8" fill="#7bcfc3" opacity=".2" transform="rotate(28 68 42)"/>
+    <path d="M41 61c10-8 18-8 28 0" stroke="#e5b85d" stroke-width="2" stroke-linecap="round" opacity=".22"/>
+  </pattern>
+</defs>
+  
+  <rect width="750" height="1334" fill="#fbf4e6"/>
+  <path d="M0 0H750V1334H0z" fill="url(#ricePattern)" opacity=".42"/>
+  <path d="M-40 210C110 155 202 269 360 216C518 163 620 207 790 142" stroke="#f1d8aa" stroke-width="18" stroke-linecap="round" opacity=".22"/>
+  <path d="M-80 980C86 895 202 1030 354 960C536 876 608 952 820 846" stroke="#cbe9df" stroke-width="20" stroke-linecap="round" opacity=".2"/>
+  <circle cx="95" cy="88" r="5" fill="#f1c96b" opacity=".38"/>
+  <circle cx="650" cy="302" r="7" fill="#53c7b9" opacity=".22"/>
+  <circle cx="514" cy="1190" r="6" fill="#f1c96b" opacity=".34"/>
+
+</svg>
